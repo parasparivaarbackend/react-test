@@ -1,6 +1,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useState } from "react";
+import { googleAuth } from "./api";
 function Login() {
   const [data, setData] = useState({
     email: "",
@@ -41,9 +42,12 @@ function Login() {
   }
   const responseGoogle = async (authResult) => {
     try {
-      console.log(authResult);
+      console.log("authResult is", authResult);
       if (authResult["code"]) {
-        console.log("hello");
+        console.log("inside if");
+
+        const result = await googleAuth(authResult["code"]);
+        console.log("result is", result);
       }
     } catch (error) {
       console.log("error while req google code responseGoogle fn: ", error);
